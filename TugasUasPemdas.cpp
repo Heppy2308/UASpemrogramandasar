@@ -2,56 +2,41 @@
 #include <string>
 using namespace std;
 
-//menghitung gaji karyawan
+//menghitung pendapatan parkir
 int main() {
-	string nama;
-	int golongan, jam_kerja;
-	double gaji_pokok, uang_lembur;
-	long int gaji_total;
-	
-	//masukkan nama
-	cout << "Masukkan nama anda : ";
-	getline(cin, nama);
+	int motor, mobil;
+	double totalPendapatanParkir, jamMasuk, jamKeluar;
 
-	//masukkan golongan dan cek inputan
-	cout << "Masukkan golongan anda (1/2/3): ";
-	cin >> golongan;
-	if (golongan == 1) {
-		gaji_pokok = 25000;
-	}
-	else if (golongan == 2) {
-		gaji_pokok = 35000;
-	}
-	else if (golongan == 3) {
-		gaji_pokok = 50000;
-	}
-	else {
-		cout << "Golongan tidak valid!" << endl;
+	//masukkan data inputan
+	cout << "Masukkan jumlah motor : ";
+	cin >> motor;
+	cout << "Masukkan jumlah mobil : ";
+	cin >> mobil;
+	cout << "Input jam masuk(format 24 jam) : ";
+	cin >> jamMasuk;
+	cout << "Input jam keluar (format 24 jam): ";
+	cin >> jamKeluar;
+
+	// Cek input*
+	if (jamMasuk < 0 || jamMasuk > 23 || jamKeluar < 0 || jamKeluar > 23) {
+		cout << "Jam masuk atau keluar tidak valid!" << endl;
 		return 1;
 	}
 
-	//masukkan jam kerja
-	cout << "Masukkan jam kerja anda per minggu : ";
-	cin >> jam_kerja;
-
-	// Menentukan gaji pokok
-	
-
-
-	//menghitung uang_lembur
-	if (jam_kerja > 48) {
-		int jam_lembur = jam_kerja - 48;
-		uang_lembur = jam_lembur * 10000;
+	//hitung lamanya parkir
+	int jamParkir;
+	if (jamKeluar >= jamMasuk) {
+		jamParkir = jamKeluar - jamMasuk;
 	} else {
-		uang_lembur = 0;
+		jamParkir = (24 - jamMasuk) + jamKeluar;
 	}
-
-
-	// Menghitung gaji total
-	gaji_total = (gaji_pokok * jam_kerja) + uang_lembur;
+	if (jamParkir == 0) {
+		jamParkir = 1;
+	}
 	
-	// Menampilkan hasil
-	cout <<  endl;
-	cout << "Total Gaji " << nama << " per minggu : Rp. " << gaji_total << endl;
+	
+	// Hitung total pendapatan
+	int totalPendapatan = (motor * 2000 * jamParkir) + (mobil * 5000 * jamParkir);
+	cout << "Total pendapatan parkir: Rp " << totalPendapatan << " (" << jamParkir << " jam)" << endl;
 	return 0;
 }
